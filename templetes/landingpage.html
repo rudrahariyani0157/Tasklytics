@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasklytics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --accent:#00d4ff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#020617;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+.bg-gradient{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(0,212,255,.15), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0,120,255,.08), transparent 50%),
+        linear-gradient(#020617,#000814);
+    z-index:-3;
+}
+
+#bgSphere{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    opacity:.45;
+    filter:blur(2px);
+    pointer-events:none;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:40px 8%;
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    font-weight:900;
+    color:var(--accent);
+    font-size:32px;
+}
+
+nav a{
+    margin-left:30px;
+    text-decoration:none;
+    color:#94a3b8;
+    font-size:18px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:var(--accent);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8%;
+    position:relative;
+    z-index:2;
+}
+
+.hero-content{
+    max-width:600px;
+}
+
+.hero h1{
+    font-size:72px;
+    font-weight:900;
+    line-height:1.05;
+}
+
+.hero span{
+    color:var(--accent);
+}
+
+.hero p{
+    margin-top:25px;
+    color:#94a3b8;
+    font-size:18px;
+    line-height:1.6;
+}
+
+.buttons{
+    margin-top:40px;
+}
+
+button{
+    padding:15px 32px;
+    border-radius:50px;
+    border:none;
+    font-weight:600;
+    cursor:pointer;
+    margin-right:15px;
+    transition:.3s;
+}
+a.primary {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #4B79A1;                  /* solid classy color */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);  /* subtle base shadow */
+    letter-spacing: 0.5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;                 /* smooth hover */
+}
+
+/* Hover: proper shadow highlight */
+a.primary:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* stronger, noticeable shadow */
+    transform: translateY(-2px);                /* slight lift for emphasis */
+}
+.outline{
+    background:transparent;
+    border:1px solid var(--accent);
+    color:#fff;
+}
+
+.outline:hover{
+    background:var(--accent);
+}
+
+/* ================= HERO SPHERE ================= */
+
+.hero-sphere{
+    width:520px;
+    height:520px;
+}
+
+#heroSphere{
+    width:100%;
+    height:100%;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero-sphere{
+        margin-top:60px;
+        width:340px;
+        height:340px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-gradient"></div>
+<canvas id="bgSphere"></canvas>
+
+<header>
+    <div class="logo">Tasklytics</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Introducing <span>Tasklytics</span></h1>
+        <p>
+            (We are currently developing this phase. Many tasks are still pending, so you may face some problems while using this website.)
+            Tasklytics analyzes your sent and received emails
+            to automatically generate a structured summary of
+            your daily pending tasks and provides you with an Excel file.
+        </p>
+
+        <div class="buttons">
+            <a href="{% url 'register' %}" class="primary">
+    Register Now
+</a>
+        </div>
+    </div>
+
+    <div class="hero-sphere">
+        <canvas id="heroSphere"></canvas>
+    </div>
+</section>
+
+<!-- PROBLEM & SOLUTION SECTION -->
+<section style="padding:80px 20px; font-family:Arial, sans-serif; text-align:center;">
+
+  <h2 style="color:#0095ff; font-size:34px; margin-bottom:60px; font-weight:600;">
+    Problem & Solution
+  </h2>
+
+  <div style="max-width:900px; margin:0 auto;">
+
+    <!-- Problem -->
+    <div style="margin-bottom:50px;">
+      <h3 style="color:#579ce7; font-size:22px; font-weight:600; margin-bottom:15px;">
+        The Problem
+      </h3>
+
+      <p style="color:#ffffff; font-size:18px; line-height:1.8; margin:0 auto; max-width:750px;">
+        Reading a large number of emails every day requires significant time and effort.
+
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div style="width:60px; height:3px; background-color:#0095ff; margin:0 auto 50px auto; border-radius:5px;"></div>
+
+    <!-- Solution -->
+    <div>
+      <h3 style="color:#579ce7; font-size:22px; font-weight:600; margin-bottom:15px;">
+        Our Solution
+      </h3>
+
+      <p style="color:#ffffff; font-size:18px; line-height:1.8; margin:0 auto; max-width:750px;">
+        Tasklytics analyzes emails and sends you a summary along with an Excel file containing the analysis.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- KEY BENEFITS SECTION -->
+<section style="padding:60px 20px; font-family:Arial, sans-serif; text-align:center;">
+  <h2 style="color:#ffffff; font-size:32px; margin-bottom:40px;">Key Benefits</h2>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1100px; margin:0 auto;">
+    
+    <!-- Card 1 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        width:280px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <h3>Increased Productivity</h3>
+      <p>
+        Automatically extracts and organizes tasks from emails,
+        saving time and reducing the effort spent manually reviewing messages.
+      </p>
+    </div>
+
+    <!-- Card 2 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        width:280px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <h3>Better Task Management</h3>
+      <p>
+        Clearly identifies pending and completed tasks, responsible persons,
+        and deadlines, helping you stay organized and avoid missed follow-ups.
+      </p>
+    </div>
+
+    <!-- Card 3 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        width:280px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <h3>Improved Accountability & Reporting</h3>
+      <p>
+        Generates structured daily summaries and Excel reports,
+        making it easier to track performance, share updates,
+        and maintain transparency.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS SECTION -->
+<section style="padding:60px 20px; font-family:Arial, sans-serif; text-align:center;">
+  
+  <h2 style="color:#ffffff; font-size:32px; margin-bottom:40px;">How It Works</h2>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1000px; margin:0 auto;">
+
+    <!-- Step 1 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        width:250px;
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <div style="
+          background-color:#579ce7;
+          color:white;
+          width:55px;
+          height:55px;
+          line-height:55px;
+          border-radius:50%;
+          margin:0 auto 15px auto;
+          font-weight:bold;
+          font-size:18px;">
+        1
+      </div>
+
+      <h3 style="color:#ffffff;">Registration</h3>
+      <p style="color:#f1f1f1;">Please provide your Gmail, email, and app passwords.</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        width:250px;
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <div style="
+          background-color:#579ce7;
+          color:white;
+          width:55px;
+          height:55px;
+          line-height:55px;
+          border-radius:50%;
+          margin:0 auto 15px auto;
+          font-weight:bold;
+          font-size:18px;">
+        2
+      </div>
+
+      <h3 style="color:#ffffff;">Analysis</h3>
+      <p style="color:#f1f1f1;">Tasklytics will analyze your emails.</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div 
+      onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='translateY(-12px) scale(1.05)',150)"
+      onmouseover="this.style.transform='translateY(-12px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.3)'"
+      onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+      style="
+        width:250px;
+        background: rgba(255,255,255,0.15);
+        padding:30px;
+        border-radius:18px;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border:1px solid rgba(255,255,255,0.3);
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        color:white;
+        transition: all 0.4s ease;
+        cursor:pointer;">
+      
+      <div style="
+          background-color:#579ce7;
+          color:white;
+          width:55px;
+          height:55px;
+          line-height:55px;
+          border-radius:50%;
+          margin:0 auto 15px auto;
+          font-weight:bold;
+          font-size:18px;">
+        3
+      </div>
+
+      <h3 style="color:#ffffff;">You will receive an gmail.</h3>
+      <p style="color:#f1f1f1;">You will receive a daily analysis report via email, along with an attached Excel file.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FOOTER SECTION -->
+<footer style="background-color:#0a3d62; color:white; padding:30px 20px; text-align:center; font-family:Arial, sans-serif;">
+  <p style="margin:0 0 10px 0;">© 2026 Tasklytics. All Rights Reserved.</p>
+  <p style="margin:0;">
+    <a href="#" style="color:#66b3ff; text-decoration:none; margin:0 10px;">Privacy Policy</a> |
+    <a href="#" style="color:#66b3ff; text-decoration:none; margin:0 10px;">Terms of Service</a> |
+    <a href="#" style="color:#66b3ff; text-decoration:none; margin:0 10px;">Contact</a>
+  </p>
+</footer>
+<script>
+/* ================= BACKGROUND SPHERE ================= */
+(function(){
+
+const canvas = document.getElementById("bgSphere");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const radius = 600;
+const nodesCount = 180;
+const perspective = 1200;
+
+const nodes=[];
+
+for(let i=0;i<nodesCount;i++){
+    const theta=Math.random()*Math.PI*2;
+    const phi=Math.acos((Math.random()*2)-1);
+
+    nodes.push({
+        x:radius*Math.sin(phi)*Math.cos(theta),
+        y:radius*Math.sin(phi)*Math.sin(theta),
+        z:radius*Math.cos(phi)
+    });
+}
+
+let rotX=0, rotY=0;
+let targetX=0, targetY=0;
+
+window.addEventListener("mousemove",e=>{
+    targetY=(e.clientX/window.innerWidth - 0.5)*1.5;
+    targetX=(e.clientY/window.innerHeight - 0.5)*1.5;
+});
+
+function render(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    const cx=canvas.width/2;
+    const cy=canvas.height/2;
+
+    rotX+=(targetX-rotX)*0.02;
+    rotY+=(targetY-rotY)*0.02;
+
+    const projected=nodes.map(n=>{
+
+        let x=n.x,y=n.y,z=n.z;
+
+        const cosY=Math.cos(rotY);
+        const sinY=Math.sin(rotY);
+        let dx=x*cosY - z*sinY;
+        let dz=z*cosY + x*sinY;
+
+        const cosX=Math.cos(rotX);
+        const sinX=Math.sin(rotX);
+        let dy=y*cosX - dz*sinX;
+        dz=dz*cosX + y*sinX;
+
+        const scale=perspective/(perspective+dz);
+
+        return{
+            x:cx + dx*scale,
+            y:cy + dy*scale,
+            scale,
+            depth:dz
+        };
+    });
+
+    projected.sort((a,b)=>a.depth-b.depth);
+
+    for(let i=0;i<projected.length;i++){
+        for(let j=i+1;j<projected.length;j++){
+            const dx=projected[i].x-projected[j].x;
+            const dy=projected[i].y-projected[j].y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+
+            if(dist<90){
+                ctx.strokeStyle="rgba(0,212,255,0.04)";
+                ctx.beginPath();
+                ctx.moveTo(projected[i].x,projected[i].y);
+                ctx.lineTo(projected[j].x,projected[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    projected.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2*p.scale,0,Math.PI*2);
+        ctx.fillStyle="#00d4ff";
+        ctx.fill();
+    });
+
+    requestAnimationFrame(render);
+}
+
+render();
+
+})();
+
+/* ================= HERO SPHERE ================= */
+(function(){
+
+const canvas=document.getElementById("heroSphere");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=canvas.offsetWidth;
+    canvas.height=canvas.offsetHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const radius=200;
+const nodesCount=110;
+const perspective=800;
+
+const nodes=[];
+
+for(let i=0;i<nodesCount;i++){
+    const theta=Math.random()*Math.PI*2;
+    const phi=Math.acos((Math.random()*2)-1);
+
+    nodes.push({
+        x:radius*Math.sin(phi)*Math.cos(theta),
+        y:radius*Math.sin(phi)*Math.sin(theta),
+        z:radius*Math.cos(phi)
+    });
+}
+
+let rotX=0, rotY=0;
+let targetX=0, targetY=0;
+
+canvas.addEventListener("mousemove",e=>{
+    const rect=canvas.getBoundingClientRect();
+    targetY=(e.clientX-rect.left)/canvas.width - 0.5;
+    targetX=(e.clientY-rect.top)/canvas.height - 0.5;
+});
+
+function render(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    const cx=canvas.width/2;
+    const cy=canvas.height/2;
+
+    rotX+=(targetX-rotX)*0.07;
+    rotY+=(targetY-rotY)*0.07;
+
+    const projected=nodes.map(n=>{
+
+        let x=n.x,y=n.y,z=n.z;
+
+        const cosY=Math.cos(rotY);
+        const sinY=Math.sin(rotY);
+        let dx=x*cosY - z*sinY;
+        let dz=z*cosY + x*sinY;
+
+        const cosX=Math.cos(rotX);
+        const sinX=Math.sin(rotX);
+        let dy=y*cosX - dz*sinX;
+        dz=dz*cosX + y*sinX;
+
+        const scale=perspective/(perspective+dz);
+
+        return{
+            x:cx + dx*scale,
+            y:cy + dy*scale,
+            scale,
+            depth:dz
+        };
+    });
+
+    projected.sort((a,b)=>a.depth-b.depth);
+
+    for(let i=0;i<projected.length;i++){
+        for(let j=i+1;j<projected.length;j++){
+            const dx=projected[i].x-projected[j].x;
+            const dy=projected[i].y-projected[j].y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+
+            if(dist<75){
+                ctx.strokeStyle="rgba(0,212,255,0.15)";
+                ctx.beginPath();
+                ctx.moveTo(projected[i].x,projected[i].y);
+                ctx.lineTo(projected[j].x,projected[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    projected.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,3*p.scale,0,Math.PI*2);
+        ctx.fillStyle="#00d4ff";
+        ctx.shadowBlur=20*p.scale;
+        ctx.shadowColor="#00d4ff";
+        ctx.fill();
+    });
+
+    requestAnimationFrame(render);
+}
+
+render();
+
+})();
+</script>
+
+</body>
+</html>

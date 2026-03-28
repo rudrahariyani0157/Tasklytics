@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProLaunch | Registration</title>
+
+<style>
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* ===== BODY LAYOUT ===== */
+body{
+    min-height:100vh;
+    /* background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); */
+    background:linear-gradient(135deg,#0f2027,#2c5364);
+    background-size: cover;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8%;
+    color:#fff;
+}
+/* body{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#0f2027,#2c5364);
+    color:#fff;
+} */
+
+
+
+/* ===== LEFT SIDE CONTENT ===== */
+.left-content{
+    max-width:500px;
+}
+
+.left-content h1{
+    font-size:42px;
+    margin-bottom:20px;
+    background:linear-gradient(45deg,#00d4ff,#6a11cb);
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.left-content p{
+    font-size:16px;
+    line-height:1.6;
+    opacity:0.9;
+    margin-bottom:20px;
+}
+
+.left-content ul{
+    list-style:none;
+}
+
+.left-content ul li{
+    margin-bottom:10px;
+    font-size:14px;
+    opacity:0.85;
+}
+
+/* ===== FORM CONTAINER ===== */
+.container{
+    width:100%;
+    max-width:450px;
+}
+
+/* ===== GLASS CARD ===== */
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-radius:18px;
+    padding:35px 28px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    animation:fadeIn 0.7s ease;
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:26px;
+}
+
+/* ===== FORM ===== */
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    font-size:13px;
+    opacity:0.85;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    box-shadow:0 0 0 2px rgba(0,212,255,0.4);
+    background:rgba(255,255,255,0.12);
+}
+
+.form-group select option{
+    background:#0f2027;
+    color:#fff;
+}
+
+/* Button */
+.btn{
+    width:100%;
+    padding:13px;
+    margin-top:10px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#00d4ff,#6a11cb);
+    color:#fff;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.note{
+    font-size:12px;
+    opacity:0.7;
+    margin-top:-8px;
+    margin-bottom:10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    body{
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+        padding:40px 20px;
+    }
+
+    .left-content{
+        margin-bottom:40px;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- LEFT SIDE -->
+<div class="left-content">
+    <h1>Tasklytics</h1>
+    <p>
+        Connect your email service and get daily Task summary,
+        Excel File and automated analysis delivered directly to your inbox.
+    </p>
+
+    <ul>
+        <li>✔ Email analysis</li>
+        <li>✔ Excel file</li>
+        <li>✔ Secure App Password authentication</li>
+        <li>✔ Supports Gmail and Zoho</li>
+    </ul>
+</div>
+
+<!-- RIGHT SIDE FORM -->
+<div class="container">
+    <div class="card">
+        <h2>Email Registration</h2>
+
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Enter a Gmail ID to receive analysis</label>
+                <input type="email" name="get_gmail_id" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>Enter mail ID to get analysis</label>
+                <input type="email" name="analysis_email" required>
+            </div>
+
+            <div class="form-group">
+                <label>App Password</label>
+                <input type="password" name="app_password" required>
+            </div>
+
+            <div class="note">
+                Use App Password instead of your email password.
+            </div>
+
+            <div class="form-group">
+                <label>Email Service Type</label>
+                <select name="mail_type" id="mailType" required>
+                    <option value="">Select Service</option>
+                    <option value="gmail">Gmail</option>
+                    <option value="zoho">Zoho</option>
+                    <option value="outlook">Outlook</option>
+                    <option value="yahoo">Yahoo</option>
+                    <option value="custom">Custom SMTP</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.querySelector("form").addEventListener("submit", function(e){
+    const type = document.getElementById("mailType").value;
+    if(type === ""){
+        alert("Please select Email Service Type");
+        e.preventDefault();
+    }
+});
+</script>
+
+</body>
+</html>

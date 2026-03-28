@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Added Successfully</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#0f2027,#2c5364);
+    color:#fff;
+}
+
+/* Card */
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    padding:50px 40px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:450px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    animation:fadeIn 0.8s ease;
+}
+
+.card h1{
+    font-size:26px;
+    margin-bottom:15px;
+}
+
+.card p{
+    font-size:15px;
+    opacity:0.85;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+/* Button */
+button{
+    padding:12px 28px;
+    border:none;
+    border-radius:25px;
+    background:#00d4ff;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+    transition:all 0.25s ease;
+}
+
+/* Hover */
+button:hover{
+    background:#009ec3;
+    transform:translateY(-3px);
+}
+
+/* Click */
+button:active{
+    transform:scale(0.97);
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>User Added Successfully</h1>
+    <p>
+        The user has been successfully added to the team.  
+        You can now continue managing your platform.
+    </p>
+
+    <button onclick="goHome()">Go to Home</button>
+</div>
+
+<script>
+function goHome(){
+    window.location.href = "{% url 'landingpage' %}";
+}
+</script>
+
+</body>
+</html>
